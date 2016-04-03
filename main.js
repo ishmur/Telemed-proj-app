@@ -9,7 +9,9 @@ var mainWindow = null;
 app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    minWidth: 500,
+    minHeight: 500
   });
 
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
