@@ -1,9 +1,10 @@
 'use strict';
 
 // Get the modal
-var modalLogin = document.getElementById("myModal-login");
+var modalLogin = document.getElementById("modalLogin");
 var modalDialogLogin = document.getElementsByClassName("modal-dialog")[0];
-var btnLogin = document.getElementById("myBtn-login");
+var btnLogin = document.getElementById("btnLogin");
+var btnCancelLogin = document.getElementById("cancelLogin");
 var spanCloseLogin = document.getElementsByClassName("close")[0];
 
 function resizeModal(modajDialogObj) {
@@ -18,6 +19,10 @@ btnLogin.onclick = function() {
 }
 
 spanCloseLogin.onclick = function() {
+    modalLogin.style.display = "none";
+}
+
+btnCancelLogin.onclick = function() {
     modalLogin.style.display = "none";
 }
 

@@ -7,18 +7,19 @@ body {
   text-align:center
 }
 
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {height: 550px}
-
-/* Set gray background color and 100% height */
-.sidenav {
-  background-color: #f1f1f1;
-  height: 100%
+/* from Bootstrap Button Generator */
+.btn-col {
+  color: #FFFFFF;
+  background-color: #5363A3;
+  border-color: #918DA8;
 }
 
-/* On small screens, set height to 'auto' for the grid */
-@media screen and (max-width: 767px) {
-  .row.content {height: auto;}
+.btn-col:hover,
+.btn-col:focus,
+.btn-col:active {
+  color: #FFFFFF!important;
+  background-color: #41418A;
+  border-color: #918DA8;
 }
 
 /* The Modal (background) */
@@ -33,7 +34,7 @@ body {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.4) /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -70,21 +71,23 @@ body {
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
 .modal-header, .close {
-      background-color: #6666B9;
-      color:white !important;
-      text-align: center;
-      font-size: 30px;
-  }
-  .modal-footer {
-      background-color: #f9f9f9;
-  }
+  background-color: #6666B9;
+  color:white !important;
+  text-align: center;
+  font-size: 30px
+}
 
-  .modal-body {padding: 2px 16px;}
+.modal-footer {
+  background-color: #f9f9f9
+}
+
+.modal-body {
+  padding: 2px 16px
+}
