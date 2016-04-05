@@ -1,3 +1,9 @@
+/* Any changes to 'body {background-color...}' property should be done in fading.js file */
+
+.hiddenBody {
+  opacity: 0
+}
+
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {height: 550px}
 

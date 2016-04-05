@@ -1,5 +1,5 @@
-body {
-  background-color: #D9D9EE!important
+.hiddenBody {
+  opacity: 0
 }
 
 #btnHome {

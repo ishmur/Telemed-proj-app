@@ -9,7 +9,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body id="bodyTag">
+
+<!-- Inline script for animating fadeIn and fadeOut in case user has javascript disabled -->
+<script>
+  var bodyTag = document.getElementById('bodyTag');
+  bodyTag.className += "hiddenBody";
+</script>
 
 <div class="container">
 

@@ -4,11 +4,17 @@
   <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/home.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 </head>
-<body>
+<body id="bodyTag">
+
+<!-- Inline script for animating fadeIn and fadeOut in case user has javascript disabled -->
+<script>
+  var bodyTag = document.getElementById('bodyTag');
+  bodyTag.className += "hiddenBody";
+</script>
 
 <nav class="navbar navbar-inverse visible-xs">
   <div class="container-fluid">
@@ -46,7 +52,10 @@
 
     <div class="col-sm-9">
       <div class="well">
-        <h4>Dashboard</h4>
+        <div class="container-fluid">
+          <!-- This button is temporary until login functions have been implemented -->
+          <button type="button" class="btn btn-lg btn-block btn-col" id="btnHome">Go Back (temp)</button>
+        </div>
         <p>Some text..</p>
       </div>
       <div class="row">
@@ -113,6 +122,8 @@
     </div>
   </div>
 </div>
+
+<script src="js/home.js"></script>
 
 </body>
 
