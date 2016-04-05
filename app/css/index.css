@@ -2,6 +2,10 @@ body {
   background-color: #D9D9EE!important
 }
 
+#btnHome {
+  margin: 10px 0px
+}
+
 .inline-element-center {
   /* add to parent of inline element */
   text-align:center
