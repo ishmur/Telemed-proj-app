@@ -3,6 +3,7 @@
 const electron = require('electron');
 const app = require('app');
 const BrowserWindow = require('browser-window');
+const ipcMain = require('electron').ipcMain;
 
 var mainWindow = null;
 
@@ -19,4 +20,8 @@ app.on('ready', function() {
   mainWindow.on('closed', function() {
     mainWindow = null;
   });
+});
+
+ipcMain.on('changePage', function (event, arg) {
+    mainWindow.loadURL('file://' + __dirname + '/app/' + arg);
 });
