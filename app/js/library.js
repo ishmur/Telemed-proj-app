@@ -1,11 +1,11 @@
 'use strict';
 
+/* Set the background-color of <body> element - only set the R, G and B components */
+var initColor = "rgba(217,217,238,XXX)";
+
 var fadeInDelay = 0;
 var fadeOutDelay = 110;
 var valueChange = 0.08;
-
-/* Set the final color of <body> element - only change the R, G and B components */
-var initColor = "rgba(217,217,238,XXX)";
 
 function setColorAlpha(colorString, alpha) {
   var stringArray = colorString.split(',');
@@ -59,9 +59,42 @@ function fadeIn(element, changeColor) {
     increase();
 }
 
+function climbUpDOM(elem, selector) {
+// Build path from DOM 'elem' up and return true if it includes 'selector'.
+// Based on jquery closest() function.
+    var firstChar = selector.charAt(0);
+    // Get closest match
+    for ( ; elem && elem !== document; elem = elem.parentNode ) {
+        // If selector is a class
+        if ( firstChar === '.' ) {
+            if ( elem.classList.contains( selector.substr(1) ) ) {
+                return elem;
+            }
+        }
+        // If selector is an ID
+        if ( firstChar === '#' ) {
+            if ( elem.id === selector.substr(1) ) {
+                return elem;
+            }
+        }
+        // If selector is a data attribute
+        if ( firstChar === '[' ) {
+            if ( elem.hasAttribute( selector.substr(1, selector.length - 2) ) ) {
+                return elem;
+            }
+        }
+        // If selector is a tag
+        if ( elem.tagName.toLowerCase() === selector ) {
+            return elem;
+        }
+    }
+    return false;
+};
+
 module.exports = {
   fadeOut: fadeOut,
+  fadeOutDelay: fadeOutDelay,
   fadeIn: fadeIn,
   fadeInDelay: fadeInDelay,
-  fadeOutDelay: fadeOutDelay
+  climbUpDOM: climbUpDOM
 }

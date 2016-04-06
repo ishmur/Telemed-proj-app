@@ -1,6 +1,6 @@
 'use strict';
 
-const fadeLib = require('../app/js/fading');
+const funLib = require('../app/js/library');
 const ipcRenderer = require('electron').ipcRenderer;
 
 var btnLogin = document.getElementById("btnLogin");
@@ -31,6 +31,7 @@ btnCancelLogin.onclick = function() {
 }
 
 window.onclick = function(event) {
+  // Hide modal when clicked outside
     if (event.target == modalLogin) {
         modalLogin.style.display = "none";
     }
@@ -38,13 +39,13 @@ window.onclick = function(event) {
 
 window.onload = function() {
   setTimeout(function() {
-    fadeLib.fadeIn(bodyTag, true);
-  }, fadeLib.fadeInDelay);
+    funLib.fadeIn(bodyTag, true);
+  }, funLib.fadeInDelay);
 }
 
 btnHome.addEventListener('click', function () {
-    fadeLib.fadeOut(bodyTag, true);
+    funLib.fadeOut(bodyTag, true);
     setTimeout(function() {
       ipcRenderer.send('changePage', 'home.html');
-    }, fadeLib.fadeOutDelay);
+    }, funLib.fadeOutDelay);
 });

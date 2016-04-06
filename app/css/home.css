@@ -1,4 +1,4 @@
-/* Any changes to 'body {background-color...}' property should be done in fading.js file */
+/* Any changes to 'body {background-color...}' property should be done in library.js file */
 
 .hiddenBody {
   opacity: 0
