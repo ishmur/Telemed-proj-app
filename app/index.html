@@ -4,11 +4,13 @@
   <title>Index</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/navigation.css">
 
 </head>
+
 <body id="bodyTag">
 
 <!-- Inline script for animating fadeIn and fadeOut in case user has javascript disabled -->
@@ -17,90 +19,47 @@
   bodyTag.className += "hiddenBody";
 </script>
 
-<div class="container">
+<div class="container" >
 
-  <div class="row">
-
-    <div class="col-sm-7">
-      <div class="container-fluid inline-element-center" style="padding-top:100px">
-        <!-- class "text-align:center" for centering an inline element -->
-        <i class="fa fa-user-md" style="font-size:400px"></i>
-      </div>
+	<div class="row" id="contentContainer">
+    <div clas="row">
+  		<div class="col-sm-8 col-sm-offset-2">
+          <div class="container-fluid jumbotron inline-element-center">
+            <h1 style="font-size:25px">
+              <i class="fa fa-medkit" ></i> ADXL-BioPro<br /><br />
+              Rozwiązanie przyszłości <br />dla danych telemedycznych</h1>
+          </div>
+  		</div>
     </div>
 
-    <div class="col-sm-5">
+		<div class="col-sm-8 col-sm-offset-2">
 
-      <div class="container-fluid" style="padding-top:60px">
-        <div class="row">
-          <div class="container-fluid jumbotron">
-            <div class="col-sm-12">
-              <div class="row inline-element-center">
-                <h3>Telemedical System Management App</h3>
-              </div>
-              <div class="row inline-element-center">
-                <h4>Developed by the glorious Biomedix-Pol Group</h4>
-              </div>
+			<div class="row">
+				<div class="container-fluid">
+          <form action="" method="POST">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Nazwa użytkownika</label>
+              <input type="email" name="email" class="form-control" placeholder="Nazwa użytkownika">
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="container-fluid">
-
-            <button type="button" class="btn btn-lg btn-block btn-col" id="btnLogin">Login</button>
-
-            <!-- Modal -->
-            <div class="modal" id="modalLogin" role="dialog">
-              <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 style="color:white;"><span class="glyphicon glyphicon-home"></span> Login</h4>
-                  </div>
-
-                  <div class="modal-body">
-                    <form role="form">
-                      <div class="form-group">
-                        <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                        <input type="text" class="form-control" id="usrname" placeholder="Enter username">
-                      </div>
-                      <div class="form-group">
-                        <label for="psw"><span class="glyphicon glyphicon-lock"></span> Password</label>
-                        <input type="text" class="form-control" id="psw" placeholder="Enter password">
-                      </div>
-                      <div class="checkbox">
-                        <label><input type="checkbox" value="" checked>Remember me</label>
-                      </div>
-                      <button type="submit" class="btn btn-col btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-                    </form>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button type="submit" id="cancelLogin" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                    <p>Not a member? <a href="#">Sign Up</a></p>
-                    <p>Forgot <a href="#">Password?</a></p>
-                  </div>
-
-                </div>
-              </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-lock"></span> Hasło</label>
+              <input type="password" name="password" class="form-control" placeholder="Hasło">
             </div>
-          </div>
-        </div>
+            <button type="submit" class="btn btn-col btn-block index-btn"><span class="glyphicon glyphicon-off"></span> Zaloguj</button>
+          </form>
+				</div>
+			</div>
 
-        <div class="row">
-          <div class="container-fluid">
-            <!-- This button is temporary until login functions have been implemented -->
-            <button type="button" class="btn btn-lg btn-block btn-col" id="btnHome">Enter without login (temp)</button>
-          </div>
-        </div>
+			<div class="row">
+				<div class="container-fluid">
+					<!-- This button is temporary until login functionality has been implemented -->
+						<button type="submit" class="btn btn-col btn-block index-btn" id="btnHome">Zaloguj jako admin</button>
+				</div>
+			</div>
 
-      </div>
-    </div>
+		</div>
+	</div>
 
-  </div>
 </div>
 
 <script src="js/index.js"></script>
