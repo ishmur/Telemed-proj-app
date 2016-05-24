@@ -4,40 +4,42 @@ const funLib = require('../app/js/library');
 const ipcRenderer = require('electron').ipcRenderer;
 
 var btnLogin = document.getElementById("btnLogin");
-var btnCancelLogin = document.getElementById("cancelLogin");
-var modalLogin = document.getElementById("modalLogin");
-var modalDialogLogin = document.getElementsByClassName("modal-dialog")[0];
-var spanCloseLogin = document.getElementsByClassName("close")[0];
 var btnHome = document.getElementById("btnHome");
-var bodyTag = document.getElementById("bodyTag");
+var btnCancelLogin = document.getElementById("modalCancelBtn");
+var modalDiv = document.getElementsByClassName("modal")[0];
+var modalDialog = document.getElementsByClassName("modal-dialog")[0];
+var modalClose = document.getElementsByClassName("close")[0];
 
-function resizeModal(modajDialogObj) {
-  modajDialogObj.style['margin-top'] = (window.innerHeight - modajDialogObj.clientHeight)/2 + "px";
+function vertCenter(obj,objProperty) {
+	obj.style[objProperty] = (window.innerHeight - obj.clientHeight)/2 + "px";
 }
 
-window.addEventListener("resize", resizeModal(modalDialogLogin));
+window.addEventListener("resize", function() {
+	vertCenter(modalDialog, 'margin-top');
+})
 
 btnLogin.onclick = function() {
-    modalLogin.style.display = "block";
-    resizeModal(modalDialogLogin);
+    modalDiv.style.display = "block";
+    vertCenter(modalDialog, 'margin-top');
 }
 
-spanCloseLogin.onclick = function() {
-    modalLogin.style.display = "none";
+modalClose.onclick = function() {
+    modalDiv.style.display = "none";
 }
 
 btnCancelLogin.onclick = function() {
-    modalLogin.style.display = "none";
+    modalDiv.style.display = "none";
 }
 
 window.onclick = function(event) {
-  // Hide modal when clicked outside
-    if (event.target == modalLogin) {
-        modalLogin.style.display = "none";
+	// Hide modal when clicked outside
+    if (event.target == modalDiv) {
+        modalDiv.style.display = "none";
     }
 }
 
 window.onload = function() {
+  vertCenter(modalDialog, 'margin-top');
   setTimeout(function() {
     funLib.fadeIn(bodyTag, true);
   }, funLib.fadeInDelay);

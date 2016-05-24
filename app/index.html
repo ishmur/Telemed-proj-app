@@ -4,11 +4,14 @@
   <title>Index</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
+  <link rel="stylesheet" type="text/css" href="css/navigation.css">
 
 </head>
+
 <body id="bodyTag">
 
 <!-- Inline script for animating fadeIn and fadeOut in case user has javascript disabled -->
@@ -17,93 +20,129 @@
   bodyTag.className += "hiddenBody";
 </script>
 
-<div class="container">
-
-  <div class="row">
-
-    <div class="col-sm-7">
-      <div class="container-fluid inline-element-center" style="padding-top:100px">
-        <!-- class "text-align:center" for centering an inline element -->
-        <i class="fa fa-user-md" style="font-size:400px"></i>
-      </div>
+<div class="row">
+    <div class="container index-row-header hidden-xs">
     </div>
+</div>
 
-    <div class="col-sm-5">
+<div class="container" >
 
-      <div class="container-fluid" style="padding-top:60px">
-        <div class="row">
-          <div class="container-fluid jumbotron">
-            <div class="col-sm-12">
-              <div class="row inline-element-center">
-                <h3>Telemedical System Management App</h3>
-              </div>
-              <div class="row inline-element-center">
-                <h4>Developed by the glorious Biomedix-Pol Group</h4>
-              </div>
-            </div>
-          </div>
-        </div>
+	<div class="row" id="contentContainer">
 
-        <div class="row">
-          <div class="container-fluid">
+		<div class="col-sm-5">
+			<div class="container-fluid inline-element-center">
+				<i class="fa fa-user-md" style="font-size:300px"></i>
+			</div>
+		</div>
 
-            <button type="button" class="btn btn-lg btn-block btn-col" id="btnLogin">Login</button>
+		<div class="col-sm-6">
 
-            <!-- Modal -->
-            <div class="modal" id="modalLogin" role="dialog">
-              <div class="modal-dialog">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="container-fluid jumbotron inline-element-center">
+						<h1 style="font-size:25px">
+							<i class="fa fa-medkit" ></i> App.teczka<br /><br />
+							System zarządzania <br />domową apteczką</h1>
+					</div>
+				</div>
+			</div>
 
-                <!-- Modal content-->
-                <div class="modal-content">
+			<div class="row">
+				<div class="container-fluid">
 
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 style="color:white;"><span class="glyphicon glyphicon-home"></span> Login</h4>
-                  </div>
+					<button type="button" class="btn btn-lg btn-block btn-col" id="btnLogin">Logowanie</button>
 
-                  <div class="modal-body">
-                    <form role="form">
-                      <div class="form-group">
-                        <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                        <input type="text" class="form-control" id="usrname" placeholder="Enter username">
-                      </div>
-                      <div class="form-group">
-                        <label for="psw"><span class="glyphicon glyphicon-lock"></span> Password</label>
-                        <input type="text" class="form-control" id="psw" placeholder="Enter password">
-                      </div>
-                      <div class="checkbox">
-                        <label><input type="checkbox" value="" checked>Remember me</label>
-                      </div>
-                      <button type="submit" class="btn btn-col btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-                    </form>
-                  </div>
+					<!-- Modal -->
+					<div class="modal" role="dialog">
+						<div class="modal-dialog">
 
-                  <div class="modal-footer">
-                    <button type="submit" id="cancelLogin" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                    <p>Not a member? <a href="#">Sign Up</a></p>
-                    <p>Forgot <a href="#">Password?</a></p>
-                  </div>
+							<!-- Modal content-->
+							<div class="modal-content">
 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+								<div class="modal-header">
+									<button type="button" class="close">&times;</button>
+									<h4 style="color:white;"><span class="glyphicon glyphicon-home"></span> Logowanie</h4>
+								</div>
 
-        <div class="row">
-          <div class="container-fluid">
-            <!-- This button is temporary until login functions have been implemented -->
-            <button type="button" class="btn btn-lg btn-block btn-col" id="btnHome">Enter without login (temp)</button>
-          </div>
-        </div>
+								<div class="modal-body">
+									<form action="" method="POST">
+										<div class="form-group">
+											<label for="usrname"><span class="glyphicon glyphicon-user"></span> Nazwa użytkownika</label>
+											<input type="email" name="email" class="form-control" id="usrname" placeholder="Nazwa użytkownika">
+										</div>
+										<div class="form-group">
+											<label for="psw"><span class="glyphicon glyphicon-lock"></span> Hasło</label>
+											<input type="password" name="password" class="form-control" id="psw" placeholder="Hasło">
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="remember" value="" checked>Zapamiętaj mnie</label>
+										</div>
+										<button type="submit" class="btn btn-col btn-block"><span class="glyphicon glyphicon-off"></span> Zaloguj</button>
+									</form>
+								</div>
 
-      </div>
-    </div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default btn-default pull-left" id="modalCancelBtn">
+										<span class="glyphicon glyphicon-remove"></span> Cofnij
+									</button>
+									<p><a href="#">Zapomniałem hasła</a></p>
+								</div>
 
-  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="container-fluid">
+					<a href="#">
+						<button type="button" class="btn btn-lg btn-block btn-col index-btn">Zarejestruj się</button>
+					</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="container-fluid">
+					<!-- This button is temporary until login functionality has been implemented -->
+						<button type="submit" class="btn btn-lg btn-block btn-col index-btn" id="btnHome">Zaloguj jako admin</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
 
 <script src="js/index.js"></script>
+
+<script src="js/index_contentCentering.js"></script>
+
+<div class="row">
+    <div class="container index-row-footer hidden-xs">
+        <br/><br/>
+        <div class="container col-sm-6">
+            <div class="container col-sm-6 col-sm-offset-6 footer-div-right">
+                <h4>Podziękowania dla:</h4>
+                <ul>
+                    <li>Stack Overflow</li>
+                    <li>Wikipedia</li>
+                    <li>9gag</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container col-sm-6">
+            <div class="container col-sm-6 footer-div-left">
+                <h4>O autorach:</h4>
+                <ul>
+                    <li>studenci Inżynierii Biomedycznej</li>
+                    <li>niezbyt zaradni życiowo</li>
+                    <li>party animals</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
