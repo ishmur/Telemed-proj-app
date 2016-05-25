@@ -51,8 +51,13 @@ function printTable(outputNode, stringArray, startingIndex, endingIndex, delimit
   var tableDataHandle = tableHandle.appendChild(tableBodyObject);
   var rowNumber = 0;
 
+  var dataArray = new Array();
+
   for (var i=startingIndex+1; i < endingIndex; i++){
     tableRowArray = stringArray[i].trim();
+    if(tableRowArray === ""){
+      continue;
+    }
     tableRowArray = tableRowArray.split(delimiterType);
     tableRow = tableDataHandle.insertRow(rowNumber);
     for (tableElementIterator in tableRowArray){
@@ -61,7 +66,12 @@ function printTable(outputNode, stringArray, startingIndex, endingIndex, delimit
       tableElement.innerHTML = tableRowArray[tableElementIterator];
     }
     rowNumber++;
+    tableRowArray = tableRowArray.map(function(x) {
+      return parseInt(x);
+    });
+    dataArray.push(tableRowArray);
   }
+  return dataArray;
 }
 
 // Read file from input or drag
@@ -90,7 +100,8 @@ function handleFileSelect(evt) {
     var fileStringArray = this.result.split("\n");
 
     printTable(outputDiv, fileStringArray, 0, 2, ",");
-    printTable(outputDiv, fileStringArray, 2, fileStringArray.length, "\t");
+    var dataArray = printTable(outputDiv, fileStringArray, 2, fileStringArray.length, "\t");
+    drawChart(dataArray);
   };
 
   reader.readAsText(files[0]);
@@ -105,3 +116,65 @@ function handleDragOver(evt) {
 window.addEventListener('dragover', handleDragOver, false);
 window.addEventListener('drop', handleFileSelect, false);
 document.getElementById('file').addEventListener('change',handleFileSelect,false);
+
+
+
+// Print chart
+
+google.charts.load('current', {'packages':['corechart']});
+//google.charts.setOnLoadCallback(drawChart);
+
+function prepareChartData(dataArray){
+  var dataX = new google.visualization.DataTable();
+  var dataY = new google.visualization.DataTable();
+  var dataZ = new google.visualization.DataTable();
+
+  var numRows = dataArray.length;
+
+  dataX.addColumn('number', 'Time');
+  dataX.addColumn('number', 'X-Axis Acceleration');
+
+  for (var i = 0; i < numRows; i++){
+    dataX.addRow([dataArray[i][0],dataArray[i][1]]);
+  }
+
+  dataY.addColumn('number', 'Time');
+  dataY.addColumn('number', 'Y-Axis Acceleration');
+
+  for (var i = 0; i < numRows; i++){
+    dataY.addRow([dataArray[i][0],dataArray[i][2]]);
+  }
+
+  dataZ.addColumn('number', 'Time');
+  dataZ.addColumn('number', 'Z-Axis Acceleration');
+
+  for (var i = 0; i < numRows; i++){
+    dataZ.addRow([dataArray[i][0],dataArray[i][2]]);
+  }
+
+  var data = [dataX, dataY, dataZ];
+
+  return data;
+}
+
+function drawChart(dataArray) {
+
+  var data = prepareChartData(dataArray);
+
+  var options = {
+    title: 'Dane z akcelerometru - os X',
+    hAxis: {title: 'Czas [us]'},
+    vAxis: {title: 'Przyspieszenie [a.u.]'},
+    legend: 'none',
+    backgroundColor: 'transparent',
+    explorer: {
+            //actions: ['dragToZoom', 'rightClickToReset'],
+            axis: 'horizontal',
+            keepInBounds: true,
+            maxZoomIn: 10.0},
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+  chart.draw(data[1], options);
+}
