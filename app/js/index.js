@@ -4,38 +4,20 @@ const funLib = require('../app/js/library');
 const ipcRenderer = require('electron').ipcRenderer;
 
 var btnLogin = document.getElementById("btnLogin");
-var btnCancelLogin = document.getElementById("cancelLogin");
-var modalLogin = document.getElementById("modalLogin");
-var modalDialogLogin = document.getElementsByClassName("modal-dialog")[0];
-var spanCloseLogin = document.getElementsByClassName("close")[0];
 var btnHome = document.getElementById("btnHome");
-var bodyTag = document.getElementById("bodyTag");
+var contentContainer = document.getElementById("contentContainer");
 
-function resizeModal(modajDialogObj) {
-  modajDialogObj.style['margin-top'] = (window.innerHeight - modajDialogObj.clientHeight)/2 + "px";
+function vertCenter(obj,objProperty) {
+    obj.style[objProperty] = (window.innerHeight - obj.clientHeight)/2 + "px";
 }
 
-window.addEventListener("resize", resizeModal(modalDialogLogin));
+window.addEventListener("resize", function() {
+    vertCenter(contentContainer, 'margin-top');
+    vertCenter(contentContainer, 'margin-bottom');
+});
 
-btnLogin.onclick = function() {
-    modalLogin.style.display = "block";
-    resizeModal(modalDialogLogin);
-}
-
-spanCloseLogin.onclick = function() {
-    modalLogin.style.display = "none";
-}
-
-btnCancelLogin.onclick = function() {
-    modalLogin.style.display = "none";
-}
-
-window.onclick = function(event) {
-  // Hide modal when clicked outside
-    if (event.target == modalLogin) {
-        modalLogin.style.display = "none";
-    }
-}
+vertCenter(contentContainer, 'margin-top');
+vertCenter(contentContainer, 'margin-bottom');
 
 window.onload = function() {
   setTimeout(function() {

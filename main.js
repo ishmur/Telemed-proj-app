@@ -11,8 +11,8 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    minWidth: 500,
-    minHeight: 500
+    minWidth: 480,
+    minHeight: 640
   });
 
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
