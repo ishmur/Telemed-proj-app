@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/navigation.css">
   <link rel="stylesheet" type="text/css" href="css/home.css">
+
 </head>
 
 <body id="bodyTag">
@@ -18,10 +19,20 @@
   bodyTag.className += "hiddenBody";
 </script>
 
+<div clas="row">
+
+      <div class="container-fluid jumbotron inline-element-center">
+        <h1 style="font-size:25px">
+          <i class="fa fa-medkit" ></i> ADXL-BioPro<br /><br />
+          Rozwiązanie przyszłości <br />dla danych telemedycznych</h1>
+      </div>
+
+</div>
+
 <div class="row">
   <div class="container-fluid">
     <!-- This button is temporary until login functionality has been implemented -->
-      <button type="submit" class="btn btn-col btn-block index-btn" id="btnHome">Wyloguj</button>
+      <button type="button" class="btn btn-col btn-block index-btn" id="btnHome">Wyloguj</button>
   </div>
 </div>
 
@@ -43,11 +54,29 @@
     </div>
   </div>
 
+  <div class="row chart-row">
+    <hr/>
+    <div class="col-xs-8" id="chart_div">
+    </div>
 
-
+    <div class="container-fluid">
+      <div class="col-sm-3 buttons-div">
+        <button type="button" class="btn btn-col btn-block btn-chart">Oś X</button>
+        <button type="button" class="btn btn-col btn-block btn-chart">Oś Y</button>
+        <button type="button" class="btn btn-col btn-block btn-chart">Oś Z</button>
+        <br>
+        <ul><h4>Obsługa wykresu:</h4>
+          <li><b>scroll</b> w obszarze wykresu powoduje przyblizenie fragmentu przebiegu
+          <li>trzymajac <b>lewy przycisk myszy</b> mozna przesuwac widoczny fragment wykresu
+          <li>po nacisnieciu <b>prawego przysisku myszy</b> nastepuje powrot do pierwotnego widoku
+        </ul>
+      </div>
+    </div>
+  </div>
 
 </div>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="js/home.js"></script>
 
 </body>
