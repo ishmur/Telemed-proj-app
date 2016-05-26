@@ -16,6 +16,19 @@ h2 {
 }
 
 #chart_div {
-  width: 900px;
-  height: 500px;
+  display: block;
+  min-width: 400px;
+  min-height: 500px;
+}
+
+.buttons-div {
+  margin-top: 50px;
+}
+
+.buttons-div > ul {
+  padding: 0;
+}
+
+.chart-row {
+  display: none;
 }

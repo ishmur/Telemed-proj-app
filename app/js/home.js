@@ -7,7 +7,9 @@ const {dialog} = require('electron').remote;
 var btnHome = document.getElementById("btnHome");
 var bodyTag = document.getElementById("bodyTag");
 
-
+var chartData = new Array();
+var btnChooseChartArray = document.getElementsByClassName("btn-chart");
+var chartRow = document.getElementsByClassName("chart-row")[0];
 
 // Window fadeIn / fadeOut on load
 
@@ -23,6 +25,10 @@ btnHome.addEventListener('click', function() {
     ipcRenderer.send('changePage', 'index.html');
   }, funLib.fadeOutDelay);
 });
+
+
+
+// Read file from input or drag
 
 function printTable(outputNode, stringArray, startingIndex, endingIndex, delimiterType){
   var tableObject = document.createElement('table');
@@ -51,8 +57,6 @@ function printTable(outputNode, stringArray, startingIndex, endingIndex, delimit
   var tableDataHandle = tableHandle.appendChild(tableBodyObject);
   var rowNumber = 0;
 
-  var dataArray = new Array();
-
   for (var i=startingIndex+1; i < endingIndex; i++){
     tableRowArray = stringArray[i].trim();
     if(tableRowArray === ""){
@@ -66,6 +70,18 @@ function printTable(outputNode, stringArray, startingIndex, endingIndex, delimit
       tableElement.innerHTML = tableRowArray[tableElementIterator];
     }
     rowNumber++;
+  }
+}
+
+function getFileData(stringArray, startingIndex, endingIndex, delimiterType){
+  var dataArray = new Array();
+
+  for (var i=startingIndex+1; i < endingIndex; i++){
+    var tableRowArray = stringArray[i].trim();
+    if(tableRowArray === ""){
+      continue;
+    }
+    tableRowArray = tableRowArray.split(delimiterType);
     tableRowArray = tableRowArray.map(function(x) {
       return parseInt(x);
     });
@@ -74,7 +90,7 @@ function printTable(outputNode, stringArray, startingIndex, endingIndex, delimit
   return dataArray;
 }
 
-// Read file from input or drag
+
 
 function handleFileSelect(evt) {
   evt.stopPropagation();
@@ -95,23 +111,24 @@ function handleFileSelect(evt) {
   var reader = new FileReader();
 
   reader.onloadend = function(event) {
-
-
     var fileStringArray = this.result.split("\n");
-
     printTable(outputDiv, fileStringArray, 0, 2, ",");
-    var dataArray = printTable(outputDiv, fileStringArray, 2, fileStringArray.length, "\t");
-    drawChart(dataArray);
+    var dataArray = getFileData(fileStringArray, 2, fileStringArray.length, "\t");
+    chartRow.classList.remove("chart-row");
+    chartData = prepareChartData(dataArray);
+    drawChart(0);
   };
 
   reader.readAsText(files[0]);
 }
+
 
 function handleDragOver(evt) {
   evt.stopPropagation();
   evt.preventDefault();
   evt.dataTransfer.dropEffect = 'send';
 }
+
 
 window.addEventListener('dragover', handleDragOver, false);
 window.addEventListener('drop', handleFileSelect, false);
@@ -122,7 +139,7 @@ document.getElementById('file').addEventListener('change',handleFileSelect,false
 // Print chart
 
 google.charts.load('current', {'packages':['corechart']});
-//google.charts.setOnLoadCallback(drawChart);
+
 
 function prepareChartData(dataArray){
   var dataX = new google.visualization.DataTable();
@@ -157,24 +174,104 @@ function prepareChartData(dataArray){
   return data;
 }
 
-function drawChart(dataArray) {
 
-  var data = prepareChartData(dataArray);
+function drawChart(currentPlot) {
 
-  var options = {
-    title: 'Dane z akcelerometru - os X',
-    hAxis: {title: 'Czas [us]'},
-    vAxis: {title: 'Przyspieszenie [a.u.]'},
-    legend: 'none',
-    backgroundColor: 'transparent',
-    explorer: {
-            //actions: ['dragToZoom', 'rightClickToReset'],
-            axis: 'horizontal',
-            keepInBounds: true,
-            maxZoomIn: 10.0},
-  };
+  switch(currentPlot){
+    default:
+        currentPlot = 0;
+        var emptyData = new google.visualization.DataTable();
+        emptyData.addColumn('number', 'Time');
+        emptyData.addColumn('number', 'X-Axis Acceleration');
+        var options = {
+          title: 'Dane z akcelerometru - oś X',
+          hAxis: {title: 'Czas [us]'},
+          vAxis: {title: 'Przyspieszenie [a.u.]'},
+          legend: 'none',
+          colors: ['purple'],
+          backgroundColor: 'transparent',
+          explorer: {
+                  axis: 'horizontal',
+                  keepInBounds: true,
+                  maxZoomIn: 10.0,
+                  zoomDelta: 1.3
+          },
+          series: {
+                  0: { enableInteractivity: false } // turn off tooltips
+          },
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(emptyData, options);
+
+        return null;
+
+    case 1:
+      var options = {
+        title: 'Dane z akcelerometru - oś X',
+        hAxis: {title: 'Czas [us]'},
+        vAxis: {title: 'Przyspieszenie [a.u.]'},
+        legend: 'none',
+        colors: ['purple'],
+        backgroundColor: 'transparent',
+        explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0,
+                zoomDelta: 1.3
+        },
+        series: {
+                0: { enableInteractivity: false } // turn off tooltips
+        },
+      };
+      break;
+
+    case 2:
+      var options = {
+        title: 'Dane z akcelerometru - oś Y',
+        hAxis: {title: 'Czas [us]'},
+        vAxis: {title: 'Przyspieszenie [a.u.]'},
+        legend: 'none',
+        colors: ['green'],
+        backgroundColor: 'transparent',
+        explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0,
+                zoomDelta: 1.3
+        },
+        series: {
+                0: { enableInteractivity: false } // turn off tooltips
+        },
+      };
+      break;
+
+    case 3:
+      var options = {
+        title: 'Dane z akcelerometru - oś Z',
+        hAxis: {title: 'Czas [us]'},
+        vAxis: {title: 'Przyspieszenie [a.u.]'},
+        legend: 'none',
+        colors: ['blue'],
+        backgroundColor: 'transparent',
+        explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0,
+                zoomDelta: 1.3
+        },
+        series: {
+                0: { enableInteractivity: false } // turn off tooltips
+        },
+      };
+      break;
+  }
 
   var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-  chart.draw(data[1], options);
+  chart.draw(chartData[currentPlot-1], options);
 }
+
+
+btnChooseChartArray[0].onclick = function(){drawChart(1);}
+btnChooseChartArray[1].onclick = function(){drawChart(2);}
+btnChooseChartArray[2].onclick = function(){drawChart(3);}
