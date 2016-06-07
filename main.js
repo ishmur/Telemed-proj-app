@@ -42,12 +42,15 @@ function getDatetimeString(){
 
 ipcMain.on('insert', function (event, arg) {
 
+  var statusInfo;
   // Get a Postgres client from the connection pool
   pg.defaults.ssl = true;
   pg.connect(DATABASE_URL, function(err, client, done) {
 
     // Handle connection errors
     if(err) {
+      statusInfo = "failure";
+      mainWindow.webContents.send('status', statusInfo);
       done();
       console.log(err);
     }
@@ -69,6 +72,8 @@ ipcMain.on('insert', function (event, arg) {
 
       query = client.query(queryText, function(err, result){
         if(err) {
+          statusInfo = "failure";
+          mainWindow.webContents.send('status', statusInfo);
           done();
           console.log(err);
         } else {
@@ -85,14 +90,23 @@ ipcMain.on('insert', function (event, arg) {
                                       samplesArray
                                     )
                                     .toString();
-          query = client.query(queryText);
-        }
+          query = client.query(queryText, function(err, result){
+            if(err) {
+              statusInfo = "failure";
+              mainWindow.webContents.send('status', statusInfo);
+              done();
+              console.log(err);
+            }
+          });
+        };
       });
     }
 
-    // After all data is returned, close connection and return results
+      // After all data is returned, close connection and return results
     query.on('end', function() {
       done();
+      statusInfo = "success";
+      mainWindow.webContents.send('status', statusInfo);
     });
 
   })
