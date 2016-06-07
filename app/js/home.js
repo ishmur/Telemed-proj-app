@@ -12,6 +12,14 @@ var fileDataArray = [];
 var formButton = document.getElementById("form-submit");
 var headerLength = 4;
 
+var modalDiv = document.getElementById("modal");
+var btnSuccess = document.getElementById("success-btn");
+var btnFailure = document.getElementById("failure-btn");
+
+var modalLoading = document.getElementById("loading");
+var modalSuccess = document.getElementById("success");
+var modalFailure = document.getElementById("failure");
+
 
 // Window fadeIn / fadeOut on load
 
@@ -19,6 +27,43 @@ window.onload = function() {
   setTimeout(function() {
     funLib.fadeIn(bodyTag, true);
   }, funLib.fadeInDelay);
+}
+
+
+// Modal handling
+
+function modalHandling(statusInfo){
+  switch(statusInfo){
+    case "success":
+      modalLoading.classList.add("hidden");
+      modalSuccess.classList.remove("hidden");
+      break;
+    case "failure":
+      modalLoading.classList.add("hidden");
+      modalFailure.classList.remove("hidden");
+      break;
+    case "reset":
+      modalDiv.style.display="none";
+      modalSuccess.classList.add("hidden");
+      modalFailure.classList.add("hidden");
+      modalLoading.classList.remove("hidden");
+      break;
+  }
+}
+
+ipcRenderer.on('status', function(event, statusInfo){
+  modalHandling(statusInfo);
+});
+
+btnSuccess.onclick = function(){
+  modalHandling("reset");
+  document.getElementById('new_exam').value="";
+  document.getElementById('fileList').innerHTML = '';
+  enableFormButton(false);
+}
+
+btnFailure.onclick = function(){
+  modalHandling("reset");
 }
 
 
@@ -59,6 +104,7 @@ function formatUploadData(file){
 
  function handleFileSelect(evt) {
 
+   modalHandling("reset");
    var files = evt.target.files; // files is a FileList of File objects
    var output = [];
    fileDataArray = [];
@@ -123,7 +169,6 @@ function enableFormButton(actionBool){
   }
 }
 
-
  function handleDragOver(evt) {
    evt.stopPropagation();
    evt.preventDefault();
@@ -134,8 +179,7 @@ function enableFormButton(actionBool){
  document.getElementById('new_exam').addEventListener('change',handleFileSelect,false);
 
 
-
  formButton.addEventListener('click', function () {
-   console.log(fileDataArray);
-    ipcRenderer.send('insert', fileDataArray);
+   modalDiv.style.display="block";
+   ipcRenderer.send('insert', fileDataArray);
  });

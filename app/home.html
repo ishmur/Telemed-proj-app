@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
+  <link rel="stylesheet" type="text/css" href="css/loading.css">
   <link rel="stylesheet" type="text/css" href="css/navigation.css">
   <link rel="stylesheet" type="text/css" href="css/home.css">
 
@@ -41,7 +43,7 @@
       <input type="file" accept=".TXT" id="new_exam" name="files[]", multiple="true"><br>
       <output id="fileList"></output><hr>
       <div class="col-sm-6 col-sm-offset-3">
-        <p><input type="button" id="form-submit", class="btn btn-col btn-block", value="Najpierw wybierz plik" disabled="true"></p>
+        <p><input type="button" id="form-submit" class="btn btn-col btn-block" value="Najpierw wybierz plik" disabled="true"></p>
       </div>
     </div>
   </div>
@@ -52,6 +54,38 @@
   </div>
 
 </div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div id="loaderDiv">
+    <div id="loading">
+      <h1>Trwa wysyłanie plikow</h1>
+      <h4>Prosimy o zachowanie cierpliwosci...</h4>
+      <div id="animation">
+        <div id="box"></div>
+        <div id="hill"></div>
+      </div>
+    </div>
+    <div>
+      <div id="success" class="hidden">
+        <h1>Sukces!</h1>
+        <h4>Dane znajdują się na serwerze.</h4><br>
+        <div class="col-sm-6 col-sm-offset-3">
+          <input type="button" id="success-btn" class="btn btn-col btn-block" value="Wroc do menu glownego">
+        </div>
+      </div>
+      <div id="failure" class="hidden">
+        <h1>Niepowodzenie!</h1>
+        <h4>Sprawdź czy pliki zawierają poprawny format danych <br> oraz czy masz połączenie z Internetem.</h4><br>
+        <div class="col-sm-6 col-sm-offset-3">
+          <input type="button" id="failure-btn"class="btn btn-col btn-block" value="Wroc do menu glownego">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 
 <script src="js/home.js"></script>
 
