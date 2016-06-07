@@ -8,20 +8,6 @@ h2 {
   text-align: center;
 }
 
-#chart_div {
-  display: block;
-  min-width: 400px;
-  min-height: 500px;
-}
-
-.buttons-div {
-  margin-top: 50px;
-}
-
-.buttons-div > ul {
-  padding: 0;
-}
-
-.chart-row {
-  display: none;
+#fileList > ul > li {
+    margin-bottom: 10px;
 }

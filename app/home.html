@@ -29,7 +29,7 @@
 
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid col-sm-8 col-sm-offset-2">
 	<div class="row">
     <div class="container-fluid">
 		    <br/><h2>Dodaj plik do bazy</h2><hr/>
@@ -38,7 +38,11 @@
 
   <div class="row">
     <div class="container-fluid">
-      <input type="file" accept=".txt" id="file" name="files[]"><hr/>
+      <input type="file" accept=".TXT" id="new_exam" name="files[]", multiple="true"><br>
+      <output id="fileList"></output><hr>
+      <div class="col-sm-6 col-sm-offset-3">
+        <p><input type="button" id="form-submit", class="btn btn-col btn-block", value="Najpierw wybierz plik" disabled="true"></p>
+      </div>
     </div>
   </div>
 
@@ -47,29 +51,8 @@
     </div>
   </div>
 
-  <div class="row chart-row">
-    <hr/>
-    <div class="col-xs-8" id="chart_div">
-    </div>
-
-    <div class="container-fluid">
-      <div class="col-sm-3 buttons-div">
-        <button type="button" class="btn btn-col btn-block btn-chart">Oś X</button>
-        <button type="button" class="btn btn-col btn-block btn-chart">Oś Y</button>
-        <button type="button" class="btn btn-col btn-block btn-chart">Oś Z</button>
-        <br>
-        <ul><h4>Obsługa wykresu:</h4>
-          <li><b>scroll</b> w obszarze wykresu powoduje przyblizenie fragmentu przebiegu
-          <li>trzymajac <b>lewy przycisk myszy</b> mozna przesuwac widoczny fragment wykresu
-          <li>po nacisnieciu <b>prawego przysisku myszy</b> nastepuje powrot do pierwotnego widoku
-        </ul>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="js/home.js"></script>
 
 </body>

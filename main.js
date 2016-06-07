@@ -5,6 +5,7 @@ const app = require('app');
 const BrowserWindow = require('browser-window');
 const ipcMain = require('electron').ipcMain;
 const pg = require('pg');
+const squel = require("squel");
 
 var mainWindow = null;
 
@@ -33,14 +34,66 @@ const dbConfigFile = require('./app/js/db');
 
 var DATABASE_URL = dbConfigFile.DATABASE_URL;
 
-pg.defaults.ssl = true;
-pg.connect(DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
+function getDatetimeString(){
+  var time = new Date();
+  var timeString = time.getFullYear() +"-"+ (1+time.getMonth()) +"-"+ time.getDate() +" "+ time.getHours() +":"+ time.getMinutes() +":"+ time.getSeconds() +"UTC";
+  return timeString;
+}
 
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
+ipcMain.on('insert', function (event, arg) {
+
+  // Get a Postgres client from the connection pool
+  pg.defaults.ssl = true;
+  pg.connect(DATABASE_URL, function(err, client, done) {
+
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+    }
+
+    for (var index in arg){
+      var currentTime = getDatetimeString();
+      arg[index]['header']['created_at'] = currentTime;
+      arg[index]['header']['updated_at'] = currentTime;
+
+      // SQL Query > Insert Data
+      var queryText = squel.insert()
+                                    .into("exams")
+                                    .setFieldsRows([
+                                      arg[index]['header']
+                                    ])
+                                    .toString();
+      queryText += "RETURNING id";
+      var query;
+
+      query = client.query(queryText, function(err, result){
+        if(err) {
+          done();
+          console.log(err);
+        } else {
+          var newlyCreatedUserId = result.rows[0].id;
+          var samplesArray = arg[index]['data'];
+          for (var rowIndex in samplesArray){
+            samplesArray[rowIndex]['exam_id'] = newlyCreatedUserId;
+            samplesArray[rowIndex]['created_at'] = currentTime;
+            samplesArray[rowIndex]['updated_at'] = currentTime;
+          }
+          queryText = squel.insert()
+                                    .into("samples")
+                                    .setFieldsRows(
+                                      samplesArray
+                                    )
+                                    .toString();
+          query = client.query(queryText);
+        }
+      });
+    }
+
+    // After all data is returned, close connection and return results
+    query.on('end', function() {
+      done();
     });
+
+  })
 });
