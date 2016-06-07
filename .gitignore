@@ -1,3 +1,6 @@
+# Heroku PostgreSQL Database Config Credentials
+app/js/db.js
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

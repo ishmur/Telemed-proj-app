@@ -19,14 +19,6 @@ window.onload = function() {
   }, funLib.fadeInDelay);
 }
 
-btnHome.addEventListener('click', function() {
-  funLib.fadeOut(bodyTag, true);
-  setTimeout(function() {
-    ipcRenderer.send('changePage', 'index.html');
-  }, funLib.fadeOutDelay);
-});
-
-
 
 // Read file from input or drag
 

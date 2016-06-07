@@ -3,7 +3,7 @@
 /* Set the background-color of <body> element - only set the R, G and B components */
 var initColor = "rgba(217,217,238,XXX)";
 
-var fadeInDelay = 0;
+var fadeInDelay = 50;
 var fadeOutDelay = 110;
 var valueChange = 0.08;
 
