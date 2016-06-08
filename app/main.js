@@ -30,6 +30,11 @@ ipcMain.on('changePage', function (event, arg) {
     mainWindow.loadURL('file://' + __dirname + '/' + arg);
 });
 
+app.on('window-all-closed', function() {
+  if (process.platform != 'darwin')
+    app.quit();
+});
+
 // Databse connection
 
 const dbConfigFile = require('./js/db');

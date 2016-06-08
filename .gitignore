@@ -6,6 +6,7 @@ Telemed-desktop-linux-ia32
 Telemed-desktop-linux-x64
 Telemed-desktop-win32-ia32
 Telemed-desktop-win32-x64
+dist
 
 # Windows image file caches
 Thumbs.db
