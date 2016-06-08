@@ -1,6 +1,6 @@
 'use strict';
 
-const funLib = require('../app/js/library');
+const funLib = require('./js/library');
 const ipcRenderer = require('electron').ipcRenderer;
 
 var btnLogin = document.getElementById("btnLogin");

@@ -1,22 +1,26 @@
 {
   "name": "TelemedDesktop",
   "version": "0.1.0",
-  "main": "./main.js",
+  "main": "./app/main.js",
   "scripts": {
-    "start": "electron ./main.js",
-    "postinstall": "install-app-deps",
-    "pack": "build --target dir",
-    "dist": "build"
+    "start": "electron ./app/main.js",
+    "dist": "npm run dist:win32 && npm run dist:win64",
+    "dist:win32": "build --ia32",
+    "dist:win64": "build --x64",
+    "postinstall": "install-app-deps"
   },
   "devDependencies": {
+    "electron-builder": "^4.2.6",
     "electron-packager": "^7.0.3",
-    "electron-prebuilt": "^0.37.4"
-  },
-  "dependencies": {
-    "pg": "4.5.6"
+    "electron-prebuilt": "^0.37.4",
+    "electron-squirrel-startup": "^1.0.0"
   },
   "build": {
     "app-bundle-id": "Telemed.project.desktop",
-    "app-category-type": "public.app-category.medical"
+    "app-category-type": "public.app-category.medical",
+    "iconUrl": "https://d30y9cdsu7xlg0.cloudfront.net/png/50115-200.png",
+    "win": {
+      "setupIcon": "./build/icon.ico"
+    }
   }
 }

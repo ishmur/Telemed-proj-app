@@ -7,9 +7,10 @@
   "version": "1.0.0",
   "main": "./main.js",
   "scripts": {
-    "start": "electron ./main.js",
+    "start": "electron ./main.js"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "pg": "4.5.6"
   }
 }
