@@ -1,8 +1,8 @@
 'use strict';
 
 const electron = require('electron');
-const app = require('app');
-const BrowserWindow = require('browser-window');
+const {app} = electron;
+const {BrowserWindow} = electron;
 const ipcMain = require('electron').ipcMain;
 const pg = require('pg');
 const squel = require("squel");
@@ -19,7 +19,7 @@ app.on('ready', function() {
 
   mainWindow.setMenu(null); // comment this line for HTML debugging
 
-  mainWindow.loadURL('file://' + __dirname + '/app/home.html');
+  mainWindow.loadURL('file://' + __dirname + '/home.html');
 
   mainWindow.on('closed', function() {
     mainWindow = null;
@@ -27,12 +27,12 @@ app.on('ready', function() {
 });
 
 ipcMain.on('changePage', function (event, arg) {
-    mainWindow.loadURL('file://' + __dirname + '/app/' + arg);
+    mainWindow.loadURL('file://' + __dirname + '/' + arg);
 });
 
 // Databse connection
 
-const dbConfigFile = require('./app/js/db');
+const dbConfigFile = require('./js/db');
 
 var DATABASE_URL = dbConfigFile.DATABASE_URL;
 
