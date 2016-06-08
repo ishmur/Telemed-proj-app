@@ -1,6 +1,12 @@
 # Heroku PostgreSQL Database Config Credentials
 app/js/db.js
 
+# Deployment folders
+Telemed-desktop-linux-ia32
+Telemed-desktop-linux-x64
+Telemed-desktop-win32-ia32
+Telemed-desktop-win32-x64
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

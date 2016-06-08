@@ -1,0 +1,15 @@
+{
+  "name": "Telemed-desktop",
+  "description": "Simple file uploader for a study project",
+  "author": "Ishmur",
+  "homepage": "https://github.com/ishmur/telemed_proj_desktop",
+  "license": "BSD-3-Clause",
+  "version": "1.0.0",
+  "main": "./main.js",
+  "scripts": {
+    "start": "electron ./main.js",
+  },
+  "dependencies": {
+    "pg": "4.5.6"
+  }
+}
