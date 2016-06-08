@@ -17,6 +17,6 @@
   },
   "build": {
     "app-bundle-id": "Telemed.project.desktop",
-    "app-category-type": "public.app-category.medical",
+    "app-category-type": "public.app-category.medical"
   }
 }
