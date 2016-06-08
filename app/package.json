@@ -10,6 +10,7 @@
     "start": "electron ./main.js"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "pg": "4.5.6"
   }
 }
