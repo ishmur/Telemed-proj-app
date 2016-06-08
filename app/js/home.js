@@ -136,7 +136,7 @@ function formatUploadData(file){
            errorCounter++;
            output.push(
                "<li class='text-danger'>",
-               '<strong>', theFile.name, '</strong>  - ' + 'plik zawiera nieprawidłowy format danych',
+               '<strong>', theFile.name, '</strong>  - ' + 'plik zawiera nieprawidłowy format naglówka',
                '</li>');
            document.getElementById('fileList').innerHTML = '<ul>' + output.join('') + '</ul>';
          }
@@ -157,13 +157,13 @@ function formatUploadData(file){
 function enableFormButton(actionBool){
   if(actionBool){
     formButton.disabled = false;
-    formButton.value = "Zapisz";
+    formButton.value = "Wyślij plik";
     formButton.classList.remove("btn-danger");
     formButton.classList.add("btn-steel-blue");
   }
   else {
     formButton.disabled = true;
-    formButton.value = "Zapis niemożliwy";
+    formButton.value = "Błąd danych wejściowych";
     formButton.classList.remove("btn-steel-blue");
     formButton.classList.add("btn-danger");
   }

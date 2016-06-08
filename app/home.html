@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <title>Home</title>
   <meta charset="utf-8">
@@ -15,7 +15,6 @@
 
 <body id="bodyTag">
 
-<!-- Inline script for animating fadeIn and fadeOut in case user has javascript disabled -->
 <script>
   var bodyTag = document.getElementById('bodyTag');
   bodyTag.className += "hiddenBody";
@@ -34,7 +33,7 @@
 <div class="container-fluid col-sm-8 col-sm-offset-2">
 	<div class="row">
     <div class="container-fluid">
-		    <br/><h2>Dodaj plik do bazy</h2><hr/>
+		    <br/><h2>Dodaj plik do bazy danych</h2><hr/>
     </div>
   </div>
 
@@ -59,8 +58,8 @@
 <div class="modal" id="modal">
   <div id="loaderDiv">
     <div id="loading">
-      <h1>Trwa wysyłanie plikow</h1>
-      <h4>Prosimy o zachowanie cierpliwosci...</h4>
+      <h1>Trwa wysyłanie plików</h1>
+      <h4>Prosimy o zachowanie cierpliwości...</h4>
       <div id="animation">
         <div id="box"></div>
         <div id="hill"></div>
@@ -71,14 +70,14 @@
         <h1>Sukces!</h1>
         <h4>Dane znajdują się na serwerze.</h4><br>
         <div class="col-sm-6 col-sm-offset-3">
-          <input type="button" id="success-btn" class="btn btn-col btn-block" value="Wroc do menu glownego">
+          <input type="button" id="success-btn" class="btn btn-col btn-block" value="Powrót do menu">
         </div>
       </div>
       <div id="failure" class="hidden">
         <h1>Niepowodzenie!</h1>
         <h4>Sprawdź czy pliki zawierają poprawny format danych <br> oraz czy masz połączenie z Internetem.</h4><br>
         <div class="col-sm-6 col-sm-offset-3">
-          <input type="button" id="failure-btn"class="btn btn-col btn-block" value="Wroc do menu glownego">
+          <input type="button" id="failure-btn"class="btn btn-col btn-block" value="Powrót do menu">
         </div>
       </div>
     </div>
