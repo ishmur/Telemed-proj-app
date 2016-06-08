@@ -17,8 +17,6 @@ app.on('ready', function() {
     minHeight: 800
   });
 
-  mainWindow.setMenu(null); // comment this line for HTML debugging
-
   mainWindow.loadURL('file://' + __dirname + '/home.html');
 
   mainWindow.on('closed', function() {
