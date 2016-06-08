@@ -1,9 +1,9 @@
 {
   "name": "TelemedDesktop",
   "version": "0.1.0",
-  "main": "./main.js",
+  "main": "./app/main.js",
   "scripts": {
-    "start": "electron ./main.js",
+    "start": "electron ./app/main.js",
     "package": "electron-packager . --all",
     "postinstall": "install-app-deps",
     "pack": "build",
