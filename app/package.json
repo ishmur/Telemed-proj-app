@@ -1,6 +1,6 @@
 {
-  "name": "TelemedDesktop",
-  "description": "Simple file uploader for a study project",
+  "name": "TELEmedapp",
+  "description": "Aplikacja desktopowa dla danych telemedycznych",
   "author": "Ishmur",
   "homepage": "https://github.com/ishmur/telemed_proj_desktop",
   "license": "BSD-3-Clause",
