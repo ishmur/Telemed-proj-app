@@ -4,7 +4,7 @@
   "main": "./app/main.js",
   "scripts": {
     "start": "electron ./app/main.js",
-    "dist:win": "npm run build --ia32 --x64",
+    "dist:win": "build --ia32 --x64",
     "postinstall": "install-app-deps"
   },
   "devDependencies": {

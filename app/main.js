@@ -5,7 +5,7 @@ const {app} = electron;
 const {BrowserWindow} = electron;
 const ipcMain = require('electron').ipcMain;
 const pg = require('pg');
-const squel = require("squel");
+const squel = require('squel');
 
 var mainWindow = null;
 
@@ -154,7 +154,7 @@ ipcMain.on('insert', function (event, arg) {
       queryText += "RETURNING id";
 
       var query = client.query(queryText, function(err, result){
-        
+
         if(err) {
           // Delete samples and exams added during this query session
           for (var queryIndex in queueIdArray){
