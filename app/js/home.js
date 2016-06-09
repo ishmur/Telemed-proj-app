@@ -100,7 +100,6 @@ function formatUploadData(file){
     samplesArray.push(rowHash);
   }
   fileInfo['data'] = samplesArray;
-  console.log(samplesArray);
 
   fileDataArray.push(fileInfo);
 }
