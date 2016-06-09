@@ -61,7 +61,7 @@ btnSuccess.onclick = function(){
   modalHandling("reset");
   document.getElementById('new_exam').value="";
   document.getElementById('fileList').innerHTML = '';
-  enableFormButton(false);
+  enableFormButton('reset');
 }
 
 btnFailure.onclick = function(){
@@ -112,7 +112,7 @@ function formatUploadData(file){
    fileDataArray = [];
 
    document.getElementById('fileList').innerHTML = ''; // clear when file upload was cancelled
-   enableFormButton(false);
+   enableFormButton('reset');
 
    for (var i = 0, f; f = files[i]; i++) {
 
@@ -144,10 +144,10 @@ function formatUploadData(file){
          }
 
          if (errorCounter){
-           enableFormButton(false);
+           enableFormButton('error');
          }
          else {
-           enableFormButton(true);
+           enableFormButton('ok');
          }
        };
      })(f);
@@ -156,18 +156,25 @@ function formatUploadData(file){
    }
  }
 
-function enableFormButton(actionBool){
-  if(actionBool){
-    formButton.disabled = false;
-    formButton.value = "Wyślij plik";
-    formButton.classList.remove("btn-danger");
-    formButton.classList.add("btn-steel-blue");
-  }
-  else {
-    formButton.disabled = true;
-    formButton.value = "Błąd danych wejściowych";
-    formButton.classList.remove("btn-steel-blue");
-    formButton.classList.add("btn-danger");
+function enableFormButton(actionString){
+  switch(actionString){
+    case 'ok':
+      formButton.disabled = false;
+      formButton.value = "Wyślij plik";
+      formButton.classList.remove("btn-danger");
+      formButton.classList.add("btn-steel-blue");
+      break;
+    case 'error':
+      formButton.disabled = true;
+      formButton.value = "Nieprawidłowy plik";
+      formButton.classList.remove("btn-steel-blue");
+      formButton.classList.add("btn-danger");
+      break;
+    case 'reset':
+      formButton.disabled = true;
+      formButton.value = "Proszę wybrać plik";
+      formButton.classList.add("btn-steel-blue");
+      break;
   }
 }
 
