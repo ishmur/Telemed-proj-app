@@ -135,7 +135,9 @@ ipcMain.on('insert', function (event, arg) {
       console.log(err);
     }
 
-    for (var index in arg){
+    var queueSize = arg.length;
+
+    for (let index in arg){
       var currentTime = getDatetimeString();
       arg[index]['header']['created_at'] = currentTime;
       arg[index]['header']['updated_at'] = currentTime;
@@ -182,7 +184,7 @@ ipcMain.on('insert', function (event, arg) {
       });
     }
 
-      // After all data is returned, close connection and return results
+    // After all data is returned, close connection and return results
     query.on('end', function() {
       done();
       statusInfo = "success";

@@ -36,10 +36,12 @@ function modalHandling(statusInfo){
   switch(statusInfo){
     case "success":
       modalLoading.classList.add("hidden");
+      modalFailure.classList.add("hidden");
       modalSuccess.classList.remove("hidden");
       break;
     case "failure":
       modalLoading.classList.add("hidden");
+      modalSuccess.classList.add("hidden");
       modalFailure.classList.remove("hidden");
       break;
     case "reset":
