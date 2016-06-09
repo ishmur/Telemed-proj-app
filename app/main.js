@@ -135,7 +135,11 @@ ipcMain.on('insert', function (event, arg) {
       console.log(err);
     }
 
-    for (var index in arg){
+    var queueSize = arg.length;
+    var queueIdArray = [];
+    var successfulQueries = 0;
+
+    for (let index in arg){
       var currentTime = getDatetimeString();
       arg[index]['header']['created_at'] = currentTime;
       arg[index]['header']['updated_at'] = currentTime;
@@ -148,46 +152,79 @@ ipcMain.on('insert', function (event, arg) {
                                     ])
                                     .toString();
       queryText += "RETURNING id";
-      var query;
 
-      query = client.query(queryText, function(err, result){
+      var query = client.query(queryText, function(err, result){
+        
         if(err) {
+          // Delete samples and exams added during this query session
+          for (var queryIndex in queueIdArray){
+            queryText = squel.delete()
+                                      .from("samples")
+                                      .where("exam_id = " + queueIdArray[queryIndex])
+                                      .toString();
+            query = client.query(queryText);
+            queryText = squel.delete()
+                                      .from("exams")
+                                      .where("id = " + queueIdArray[queryIndex])
+                                      .toString();
+            query = client.query(queryText);
+          }
           statusInfo = "failure";
           mainWindow.webContents.send('status', statusInfo);
           done();
           console.log(err);
-        } else {
+        }
+
+        else {
           var newlyCreatedUserId = result.rows[0].id;
+          queueIdArray.push(newlyCreatedUserId);
+
           var samplesArray = arg[index]['data'];
           for (var rowIndex in samplesArray){
             samplesArray[rowIndex]['exam_id'] = newlyCreatedUserId;
             samplesArray[rowIndex]['created_at'] = currentTime;
             samplesArray[rowIndex]['updated_at'] = currentTime;
           }
+
           queryText = squel.insert()
                                     .into("samples")
                                     .setFieldsRows(
                                       samplesArray
                                     )
                                     .toString();
-          query = client.query(queryText, function(err, result){
-            if(err) {
-              statusInfo = "failure";
-              mainWindow.webContents.send('status', statusInfo);
+          query = client.query(queryText);
+
+          query.on('error',function(err, result){
+            // Delete samples and exams added during this query session
+            for (var queryIndex in queueIdArray){
+              queryText = squel.delete()
+                                        .from("samples")
+                                        .where("exam_id = " + queueIdArray[queryIndex])
+                                        .toString();
+              query = client.query(queryText);
+              queryText = squel.delete()
+                                        .from("exams")
+                                        .where("id = " + queueIdArray[queryIndex])
+                                        .toString();
+              query = client.query(queryText);
+            }
+            statusInfo = "failure";
+            mainWindow.webContents.send('status', statusInfo);
+            done();
+            console.log(err);
+          });
+
+          query.on('end',function(){
+            successfulQueries++;
+            // After all data is returned, close connection and return results
+            if (successfulQueries == queueSize){
               done();
-              console.log(err);
+              statusInfo = "success";
+              mainWindow.webContents.send('status', statusInfo);
             }
           });
-        };
+        }
       });
     }
-
-      // After all data is returned, close connection and return results
-    query.on('end', function() {
-      done();
-      statusInfo = "success";
-      mainWindow.webContents.send('status', statusInfo);
-    });
-
   })
 });

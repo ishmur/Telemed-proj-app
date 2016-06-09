@@ -36,10 +36,12 @@ function modalHandling(statusInfo){
   switch(statusInfo){
     case "success":
       modalLoading.classList.add("hidden");
+      modalFailure.classList.add("hidden");
       modalSuccess.classList.remove("hidden");
       break;
     case "failure":
       modalLoading.classList.add("hidden");
+      modalSuccess.classList.add("hidden");
       modalFailure.classList.remove("hidden");
       break;
     case "reset":
@@ -90,7 +92,7 @@ function formatUploadData(file){
     var rowText = fileTextStringArray[index].trim();
     if (rowText === "") continue; // skip empty rows
     var rowHash = {};
-    rowText = rowText.split("\t");
+    rowText = rowText.split(/[\t,]+/);
     rowHash['time'] = rowText[0];
     rowHash['ax'] = rowText[1];
     rowHash['ay'] = rowText[2];
@@ -98,6 +100,7 @@ function formatUploadData(file){
     samplesArray.push(rowHash);
   }
   fileInfo['data'] = samplesArray;
+  console.log(samplesArray);
 
   fileDataArray.push(fileInfo);
 }

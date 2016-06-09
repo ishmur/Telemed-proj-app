@@ -39,7 +39,7 @@
 
   <div class="row">
     <div class="container-fluid">
-      <input type="file" accept=".TXT" id="new_exam" name="files[]", multiple="true"><br>
+      <input type="file" accept=".TXT, .CSV" id="new_exam" name="files[]", multiple="true"><br>
       <output id="fileList"></output><hr>
       <div class="col-sm-6 col-sm-offset-3">
         <p><input type="button" id="form-submit" class="btn btn-col btn-block" value="Najpierw wybierz plik" disabled="true"></p>
@@ -74,8 +74,8 @@
         </div>
       </div>
       <div id="failure" class="hidden">
-        <h1>Niepowodzenie!</h1>
-        <h4>Sprawdź czy pliki zawierają poprawny format danych <br> oraz czy masz połączenie z Internetem.</h4><br>
+        <h1>Wystąpił błąd!</h1>
+        <h4>Sprawdź czy wszystkie pliki zawierają poprawny format danych oraz czy masz połączenie z Internetem.</h4><br>
         <div class="col-sm-6 col-sm-offset-3">
           <input type="button" id="failure-btn"class="btn btn-col btn-block" value="Powrót do menu">
         </div>
