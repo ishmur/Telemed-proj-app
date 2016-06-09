@@ -136,6 +136,8 @@ ipcMain.on('insert', function (event, arg) {
     }
 
     var queueSize = arg.length;
+    var queueIdArray = [];
+    var successfulQueries = 0;
 
     for (let index in arg){
       var currentTime = getDatetimeString();
@@ -158,8 +160,11 @@ ipcMain.on('insert', function (event, arg) {
           mainWindow.webContents.send('status', statusInfo);
           done();
           console.log(err);
-        } else {
+        }
+
+        else {
           var newlyCreatedUserId = result.rows[0].id;
+          queueIdArray.push(newlyCreatedUserId);
           var samplesArray = arg[index]['data'];
           for (var rowIndex in samplesArray){
             samplesArray[rowIndex]['exam_id'] = newlyCreatedUserId;
@@ -172,24 +177,24 @@ ipcMain.on('insert', function (event, arg) {
                                       samplesArray
                                     )
                                     .toString();
-          query = client.query(queryText, function(err, result){
-            if(err) {
-              statusInfo = "failure";
-              mainWindow.webContents.send('status', statusInfo);
+          query = client.query(queryText);
+          query.on('error',function(err,result){
+            statusInfo = "failure";
+            mainWindow.webContents.send('status', statusInfo);
+            done();
+            console.log(err);
+          });
+          query.on('end',function(){
+            successfulQueries++;
+            // After all data is returned, close connection and return results
+            if (successfulQueries == queueSize){
               done();
-              console.log(err);
+              statusInfo = "success";
+              mainWindow.webContents.send('status', statusInfo);
             }
           });
-        };
+        }
       });
     }
-
-    // After all data is returned, close connection and return results
-    query.on('end', function() {
-      done();
-      statusInfo = "success";
-      mainWindow.webContents.send('status', statusInfo);
-    });
-
   })
 });
