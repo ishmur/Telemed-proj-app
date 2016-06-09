@@ -152,10 +152,23 @@ ipcMain.on('insert', function (event, arg) {
                                     ])
                                     .toString();
       queryText += "RETURNING id";
-      var query;
 
-      query = client.query(queryText, function(err, result){
+      var query = client.query(queryText, function(err, result){
+        
         if(err) {
+          // Delete samples and exams added during this query session
+          for (var queryIndex in queueIdArray){
+            queryText = squel.delete()
+                                      .from("samples")
+                                      .where("exam_id = " + queueIdArray[queryIndex])
+                                      .toString();
+            query = client.query(queryText);
+            queryText = squel.delete()
+                                      .from("exams")
+                                      .where("id = " + queueIdArray[queryIndex])
+                                      .toString();
+            query = client.query(queryText);
+          }
           statusInfo = "failure";
           mainWindow.webContents.send('status', statusInfo);
           done();
@@ -165,12 +178,14 @@ ipcMain.on('insert', function (event, arg) {
         else {
           var newlyCreatedUserId = result.rows[0].id;
           queueIdArray.push(newlyCreatedUserId);
+
           var samplesArray = arg[index]['data'];
           for (var rowIndex in samplesArray){
             samplesArray[rowIndex]['exam_id'] = newlyCreatedUserId;
             samplesArray[rowIndex]['created_at'] = currentTime;
             samplesArray[rowIndex]['updated_at'] = currentTime;
           }
+
           queryText = squel.insert()
                                     .into("samples")
                                     .setFieldsRows(
@@ -178,12 +193,27 @@ ipcMain.on('insert', function (event, arg) {
                                     )
                                     .toString();
           query = client.query(queryText);
-          query.on('error',function(err,result){
+
+          query.on('error',function(err, result){
+            // Delete samples and exams added during this query session
+            for (var queryIndex in queueIdArray){
+              queryText = squel.delete()
+                                        .from("samples")
+                                        .where("exam_id = " + queueIdArray[queryIndex])
+                                        .toString();
+              query = client.query(queryText);
+              queryText = squel.delete()
+                                        .from("exams")
+                                        .where("id = " + queueIdArray[queryIndex])
+                                        .toString();
+              query = client.query(queryText);
+            }
             statusInfo = "failure";
             mainWindow.webContents.send('status', statusInfo);
             done();
             console.log(err);
           });
+
           query.on('end',function(){
             successfulQueries++;
             // After all data is returned, close connection and return results
